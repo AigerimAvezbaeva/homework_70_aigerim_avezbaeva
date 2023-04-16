@@ -22,10 +22,11 @@ class LoginView(TemplateView):
         password = form.cleaned_data.get('password')
         user = authenticate(request, username=username, password=password)
         if not user:
-            return redirect('index')
+            return redirect('login')
         login(request, user)
         next = request.GET.get('next')
-        if next: return redirect(next)
+        if next:
+            return redirect(next)
         return redirect('index')
 
 
