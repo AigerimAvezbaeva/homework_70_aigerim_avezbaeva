@@ -14,3 +14,8 @@ class IssueView(APIView):
         serializer = IssuesSerializer(objects, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+
+class IssueDetailView(RetrieveAPIView):
+    queryset = Issue.objects.all()
+    serializer_class = IssuesSerializer
+    lookup_field = 'pk'
