@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'bootstrap5',
     'tracker_app',
     'accounts',
+    'api',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
