@@ -7,13 +7,13 @@ from tracker_app.models.projects import Project
 class Issue(models.Model):
     summary = models.CharField(
         max_length=200,
-        null=True,
+        null=False,
         blank=False,
         verbose_name="Заголовок")
     description = models.TextField(
         max_length=3000,
         null=False,
-        blank=False,
+        blank=True,
         verbose_name="Описание")
     status = models.ForeignKey(
         to='tracker_app.Status',
@@ -24,14 +24,12 @@ class Issue(models.Model):
     type = models.ManyToManyField(
         to='tracker_app.Type',
         related_name='issues',
-        verbose_name='Тип',
-        blank=True
+        verbose_name='Тип'
     )
     project = models.ForeignKey(
         to='tracker_app.Project',
         related_name='issues',
         verbose_name='Проект',
-        blank=True,
         on_delete=models.PROTECT
     )
     created_at = models.DateField(
@@ -49,6 +47,7 @@ class Issue(models.Model):
     deleted_at = models.DateTimeField(
         verbose_name='Дата и время удаления',
         null=True,
+        blank=True,
         default=None)
 
     def delete(self, using=None, keep_parents=False):
