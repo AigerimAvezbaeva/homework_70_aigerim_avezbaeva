@@ -124,3 +124,4 @@ class ProjectDeleteView(DestroyAPIView):
         project_id = project.id
         project.delete()
         return Response({'project_pk': project_id}, status=status.HTTP_204_NO_CONTENT)
+

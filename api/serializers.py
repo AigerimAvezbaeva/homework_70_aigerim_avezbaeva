@@ -19,9 +19,10 @@ class IssuesSerializer(serializers.ModelSerializer):
         fields = ('summary', 'description', 'status', 'type', 'project', 'updated_at', 'is_deleted', 'deleted_at')
         read_only_fields = ('updated_at', 'is_deleted', 'deleted_at')
 
-
-class ProjectsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Project
-        fields = ('name','created_at', 'completed_at', 'description')
-        read_only_fields = ('id', 'created_at')
+    # def create(self, validated_data):
+    #     return Issue.objects.create(**validated_data)
+    #
+    # def update(self, instance: Issue, validated_data):
+    #     for field, value in validated_data.items():
+    #         setattr(instance, field, value)
+    #     instance.save()
