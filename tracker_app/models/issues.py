@@ -30,7 +30,7 @@ class Issue(models.Model):
         to='tracker_app.Project',
         related_name='issues',
         verbose_name='Проект',
-        on_delete=models.PROTECT
+        on_delete=models.CASCADE
     )
     created_at = models.DateField(
         auto_now_add=True,
