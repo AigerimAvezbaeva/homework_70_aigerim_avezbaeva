@@ -1,14 +1,12 @@
 from django.db import models
 from django.utils import timezone
 
-from tracker_app.models.projects import Project
-
-
 class Issue(models.Model):
     summary = models.CharField(
         max_length=200,
         null=False,
-        blank=False,
+        blank=True,
+        default="Задача",
         verbose_name="Заголовок")
     description = models.TextField(
         max_length=3000,
@@ -19,6 +17,8 @@ class Issue(models.Model):
         to='tracker_app.Status',
         related_name='issues',
         verbose_name='Статус',
+        blank=False,
+        null=True,
         on_delete=models.PROTECT
     )
     type = models.ManyToManyField(

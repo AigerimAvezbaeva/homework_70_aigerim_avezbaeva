@@ -1,5 +1,5 @@
 from rest_framework import status
-from rest_framework.generics import RetrieveAPIView, UpdateAPIView
+from rest_framework.generics import RetrieveAPIView, UpdateAPIView, CreateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
@@ -37,4 +37,21 @@ class IssueUpdateView(UpdateAPIView):
     def perform_update(self, serializer):
         instance = serializer.save()
         return instance
+
+
+def perform_update(serializer):
+    instance = serializer.save()
+    return instance
+
+
+class IssueCreateView(CreateAPIView):
+    queryset = Issue.objects.all()
+    serializer_class = IssuesSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
