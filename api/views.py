@@ -1,5 +1,5 @@
 from rest_framework import status
-from rest_framework.generics import RetrieveAPIView, UpdateAPIView, CreateAPIView
+from rest_framework.generics import RetrieveAPIView, UpdateAPIView, CreateAPIView, DestroyAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
@@ -55,3 +55,13 @@ class IssueCreateView(CreateAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
+class IssueDeleteView(DestroyAPIView):
+    queryset = Issue.objects.all()
+    serializer_class = IssuesSerializer
+    lookup_field = 'pk'
+
+    def delete(self, request, *args, **kwargs):
+        issue = self.get_object()
+        issue_id = issue.id
+        issue.delete()
+        return Response({'issue_pk': issue_id}, status=status.HTTP_204_NO_CONTENT)
